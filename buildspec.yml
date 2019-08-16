@@ -5,13 +5,13 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --no-include-email --region ap-south-1)
-      - echo etailer-ui
+      - REPOSITORY_URI="340104922532.dkr.ecr.ap-south-1.amazonaws.com/gopa-ecr-etailer"
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...          
-      - docker build -t etailer-ui:latest .
+      - echo Building the Docker image... 
+      - docker build -t $REPOSITORY_URI:latest .
   post_build:
     commands:
       - echo Pushing the Docker images...
-      - docker push etailer-ui:latest
+      - docker push $REPOSITORY_URI:latest
